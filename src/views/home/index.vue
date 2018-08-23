@@ -95,7 +95,7 @@
     }
     .tab-title{
         margin-top: 1vw;
-        font-size: 4vw;
+        font-size: 3.8vw;
         color: #666666;
     }
     .tab-img{
@@ -135,7 +135,7 @@
         padding: 3vw 4vw;
         box-sizing: border-box;
         .iconfont{
-            font-size: 4.2vw;
+            font-size: 4.5vw;
         }
     }
     .msg-wrapper{
@@ -143,7 +143,7 @@
         align-items: center;
         display: flex;
         color: #777;
-        font-size: 3.8vw;
+        font-size: 3.6vw;
     }
     .division{
         width: 100vw;

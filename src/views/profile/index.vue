@@ -67,7 +67,7 @@
   .item-list{
     width: 100%;
     color: #777;
-    font-size: 4vw;
+    font-size: 3.6vw;
     .image-item{
       padding: 1vw 4vw;
       display: flex;
@@ -88,7 +88,7 @@
           border-radius: 8vw;
         }
         .icon-right{
-          font-size: 5.5vw;
+          font-size: 4.5vw;
         }
       }
     }
@@ -140,7 +140,7 @@
     justify-content: center;
     align-items: center;
     color: #777;
-    font-size: 4vw;
+    font-size: 3.6vw;
   }
 }
 
