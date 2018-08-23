@@ -1,6 +1,6 @@
-# front-vux
+# wevue-faster
 
-> A Vue.js project
+> 于vue2.x的快速开发架构，封装了api层，路由钩子，http拦截器，通用config,使用vuex模块化管理store,优化可webpack等，引入了vux ui库，适用于微信公众号的快速开发
 
 ## Build Setup
 
