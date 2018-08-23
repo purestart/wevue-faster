@@ -55,13 +55,19 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
      */
 
     productionSourceMap: true,
+    /**
+     * 开启gz压缩
+     */
+    productionGzip: true,
+    productionGzipExtensions: ['js', 'css'],
+
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 

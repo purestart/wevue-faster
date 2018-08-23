@@ -14,7 +14,7 @@
                     </div>
                     <div class="desc">
                         <span class="label">人民日报</span>
-                        <span class="update-date">2018-08-10</span>
+                        <span class="update-date">2018-08-20</span>
                     </div>
                 </div>
             </div>

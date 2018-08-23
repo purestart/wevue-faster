@@ -1,25 +1,30 @@
-# wevue-faster
+# front-vux
 
-#### 项目介绍
-基于vue2.x的快速开发架构，封装了api层，路由钩子，http拦截器，通用config,使用vuex模块化管理store,优化可webpack等，引入了vux ui库，适用于微信公众号的快速开发
+> A Vue.js project
 
-#### 软件架构
-软件架构说明
+## Build Setup
 
+``` bash
+# install dependencies
+npm install
 
-#### 安装教程
+# serve with hot reload at localhost:8080
+npm run dev
 
-1. npm install
-2. npm run dev
+# build for production with minification
+npm run build
 
-#### 使用说明
+# build for production and view the bundle analyzer report
+npm run build --report
 
-1. 适用于微信公众号或者移动端web-app开发
+# run unit tests
+npm run unit
 
-#### 参与贡献
+# run e2e tests
+npm run e2e
 
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+# run all tests
+npm test
+```
 
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
