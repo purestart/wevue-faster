@@ -6,29 +6,22 @@
 </template>
 
 <script type='text/ecmascript-6'>
-import BottomNav from '../components/BottomNav';
-  export default {
-    data () {
-      return {
-      }
-    },
-    components:{
-        BottomNav,
-    },
-    created () {
-    },
-    mounted () {
-
-    },
-    methods:{
-
-    }
-  }
+import BottomNav from "../components/BottomNav";
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    BottomNav
+  },
+  created() {},
+  mounted() {},
+  methods: {}
+};
 </script>
 
 <style lang='scss' scoped>
-    .index-wapper{
-          padding-bottom: 60px;
-    }
-
+.index-wapper {
+  padding-bottom: 60px;
+}
 </style>

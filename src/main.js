@@ -7,7 +7,10 @@ import App from './App'
 import router from './router'
 import store from './vuex';
 
-import { Group, Cell } from 'vux';
+import {
+  Group,
+  Cell
+} from 'vux';
 
 import axios from 'axios';
 
@@ -48,23 +51,25 @@ axios.interceptors.response.use(function (response) {
 
 router.beforeEach((to, from, next) => {
   if (to.path == '/login') {
-      //sessionStorage.removeItem('username');
-    }
+    //sessionStorage.removeItem('username');
+  }
   //let user = sessionStorage.getItem('username');
   if (false) { //!user && to.path != '/login'
-      next({path: '/login'})
-    } else {
-      
-      next()
-    }
-  });
-  
-  router.afterEach(transition => {
-    setTimeout(()=>{
-      
-    },200)
-    
-  });
+    next({
+      path: '/login'
+    })
+  } else {
+
+    next()
+  }
+});
+
+router.afterEach(transition => {
+  setTimeout(() => {
+
+  }, 200)
+
+});
 
 /* eslint-disable no-new */
 

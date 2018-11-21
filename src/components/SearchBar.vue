@@ -1,16 +1,41 @@
 <template>
+
   <div class="image-dialog">
-    <button class="image-dialog-trigger" type="button" @click="showDialog">
-     <img :style="{borderRadius:(radius)+'px'}" class="image-dialog-thumb" ref="thumb" :src="thumb"/></button>
+    <div class="image-dialog-trigger" type="button" @click="showDialog">
+        <div ref="thumb" class="input-wrapper">
+            <div class="input"  >
+                <i class="iconfont icon-search1187938easyiconnet"></i>
+                <span class="palceholder">名称/单号/库房</span>
+            </div>
+        </div>
+     </div>
     <transition name="dialog" @enter="enter" @leave="leave">
-      <div @click="hideDialog" class="image-dialog-background" v-show="appearedDialog" ref="dialog">
-        
-        <button v-if="true" class="image-dialog-close" type="button" @click="hideDialog" aria-label="Close"></button>
-        <img @click.stop="()=>{}" class="image-dialog-animate" ref="animate" :class="{ loading: !loaded }" :src="loaded ? full : thumb"/>
-        <img @click.stop="()=>{}" class="image-dialog-full" ref="full" :src="appearedDialog && full" :width="fullWidth" :height="fullHeight" @load="onLoadFull"/>
-        
+      <div  class="image-dialog-background" v-show="appearedDialog" ref="dialog">
+        <button v-if="false" class="image-dialog-close" type="button" aria-label="Close"></button>
+        <!-- <img @click.stop="()=>{}" class="image-dialog-animate" ref="animate" :class="{ loading: !loaded }" :src="loaded ? full : thumb"/> -->
+        <div ref="animate"  class="input-wrapper image-dialog-animate">
+            <div  class="input"  >
+                <i class="iconfont icon-search1187938easyiconnet"></i>
+                <span class="palceholder">名称/单号/库房</span>
+            </div>
+        </div>
+        <div ref="full" @load="onLoadFull"  class="input-wrapper image-dialog-full">
+            <div  class="input"  >
+                <i class="iconfont icon-search1187938easyiconnet"></i>
+                <input @input="onInput" v-model="keyword" placeholder="名称/单号/库房" class="palceholder" />
+                <i @click="()=>{keyword=''}" class="iconfont icon-close1"></i>
+            </div>
+            <div ref="cancleBtn" @click="submitForm" class="cancle-btn">
+                {{keyword.length>0?'搜索':'取消'}}
+            </div>
+        </div>
+        <div :class="loaded?'visible':''" class="slot-content" >
+            <slot></slot>
+        </div>
       </div>
     </transition>
+
+
   </div>
 </template>
 
@@ -20,16 +45,16 @@ export default {
     thumb: String,
     full: String,
     radius:Number,
-    maxWidth:{
-        type: Number,
-        required: false,
-        default:0
+    onSearch:{
+        type:Function,
+        required:true,
+        default:()=>{}
     },
-     maxHeight:{
-        type: Number,
-        required: false,
-        default:0
-    }
+    onChange:{
+        type:Function,
+        required:true,
+        default:()=>{}
+    },
   },
 
   data() {
@@ -38,6 +63,8 @@ export default {
       appearedDialog: false,
       fullWidth: 0,
       fullHeight: 0,
+      keyword:"",
+      showCancle:false
 
     };
   },
@@ -50,6 +77,18 @@ export default {
 
   },
   methods: {
+      onInput(e){
+          this.onChange(e.target.value);
+      },
+      submitForm(){
+        if(this.keyword.length>0){
+            this.appearedDialog=false;
+            this.onSearch(this.keyword);
+            
+        }else{
+            this.hideDialog();
+        }
+      },
     getImgNaturalDimensions(oImg, callback) {
       var nWidth, nHeight;
       if (!oImg.naturalWidth) {
@@ -70,23 +109,36 @@ export default {
         nImg.src = oImg.src;
       }
     },
+
+    getEleNaturalDimensions(oImg, callback) {
+        var nWidth, nHeight;
+        nWidth = oImg.offsetWidth;
+        nHeight = oImg.offsetHeight;
+        //console.log(oImg);
+        callback({ w: nWidth, h: nHeight });
+    },
+
     showDialog() {
     const thumb = this.$refs.thumb;
-    this.getImgNaturalDimensions(thumb,(dimension)=>{
-        console.log(dimension);
+    this.getEleNaturalDimensions(thumb,(dimension)=>{
+        //console.log(dimension);
         if(dimension.w>dimension.h){
             this.fullHeight=(dimension.h/dimension.w)*this.fullWidth;
         }else{
             this.fullWidth=(dimension.w/dimension.h)*this.fullHeight;
         }
+
+        //console.log(this.fullWidth + "--" +this.fullHeight);
         //判断最大允许宽度
         if(this.maxWidth && this.maxWidth>0 && this.fullWidth>this.maxWidth){
+            
           this.fullWidth=this.maxWidth;
           this.fullHeight=(dimension.h/dimension.w)*this.fullWidth;
         }
 
         //判断最大允许高度
         if(this.maxHeight && this.maxHeight>0 && this.fullHeight>this.maxHeight){
+            
           this.fullHeight=this.maxHeight;
           this.fullWidth=(dimension.w/dimension.h)*this.fullHeight;
         }
@@ -101,39 +153,47 @@ export default {
     },
 
     enter() {
-      this.animateImage(this.$refs.thumb, this.$refs.full);
+      this.animateImage(this.$refs.thumb, this.$refs.full,this.$refs.cancleBtn,1);
+      setTimeout(()=>{
+          this.loaded=true;
+      },600)
     },
 
     leave() {
-      this.animateImage(this.$refs.full, this.$refs.thumb);
+      this.animateImage(this.$refs.full, this.$refs.thumb,this.$refs.cancleBtn,0);
+      this.loaded=false;
     },
 
     onLoadFull() {
       this.loaded = true;
     },
 
-    animateImage(startEl, destEl) {
+    animateImage(startEl, destEl,cancleEl,type) {
       const start = this.getBoundForDialog(startEl);
       this.setStart(start);
 
-      //console.log("animateImage");
+      const gapEl=this.getBoundForDialog(cancleEl);
+
+      //console.log("start");
       //console.log(start);
 
 
       this.$nextTick(() => {
         const dest = this.getBoundForDialog(destEl);
+        //console.log("dest")
+        //console.log(dest);
         this.setDestination(start, {
           top: dest.top,
           left: dest.left,
           width: dest.width || this.fullWidth,
           height: dest.height || this.fullHeight
-        });
+        },gapEl,type);
       });
     },
 
     getBoundForDialog(el) {
       const bound = el.getBoundingClientRect();
-      console.log(bound);
+      //console.log(bound);
       const dialog = this.$refs.dialog;
       return {
         top: bound.top + dialog.scrollTop,
@@ -153,14 +213,28 @@ export default {
       el.style.transform = "";
     },
 
-    setDestination(start, dest) {
+    setDestination(start, dest,gapEl,type) {
       const el = this.$refs.animate;
       el.style.transitionDuration = "";
+
+    //     console.log("变更");
+    //   console.log(start);
+    //   console.log(dest);
+    //   console.log(gapEl)
+
+      if(type==1){
+          dest.width=dest.width-gapEl.width;
+      }else{
+          //start.width=start.width-gapEl.width;
+          //dest.width=dest.width-gapEl.width;
+      }
+      
 
       const translate = `translate(${dest.left - start.left}px, ${dest.top -
         start.top}px)`;
       const scale = `scale(${dest.width / start.width}, ${dest.height /
         start.height})`;
+      
       el.style.transform = `${translate} ${scale}`;
     }
   }
@@ -175,11 +249,76 @@ export default {
 }
 .image-dialog {
   width: 100%;
-  height: 100%;
+
   .image-dialog-trigger {
     width: 100%;
-    height: 100%;
+
   }
+
+    .slot-content{
+        transition: opacity .6s ease;
+        opacity: 0;
+        &.visible{
+            opacity: 1;
+        }
+    }
+
+    .image-dialog-full{
+        display: flex;
+        .cancle-btn{
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            padding-left: 10px;
+            padding-right: 4px;
+            color: #777777;
+        }
+    }
+    .input-wrapper{
+         background-color: #efeff4;
+        border-bottom:1px solid #e4e4e4;
+        padding: 2vw 2vw;
+        box-sizing: border-box;
+        width: 100vw;
+
+        .input{
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-size: 15px;
+            border-radius: 5px;
+            
+            min-height: 7vw;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            transition: width 3s;
+
+            input{
+                border: none;
+                outline: none;
+                padding: 5px;
+                font-size: 15px;
+                border-radius: 5px;
+                padding-left: 0;
+                flex: 1;
+            }
+
+            .iconfont{
+                color: #999;
+                margin-left: 1vw;
+                margin-right: 2vw;
+                font-size: 15px;
+                padding-top: 0px;
+            }
+            .palceholder{
+                color: #999;
+            }
+        }
+    }
+
+  
 }
 .image-dialog-thumb{
     object-fit: cover;
@@ -240,9 +379,8 @@ export default {
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.9);
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 999;
+  
 }
 .image-dialog-animate {
   display: none;

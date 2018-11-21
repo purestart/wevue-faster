@@ -17,7 +17,7 @@ const Home = () => import('../views/home/index.vue')
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  //mode: 'history',
   routes: [
     {
       path: '/',
@@ -45,6 +45,11 @@ export default new Router({
       name: 'news',
       component: News
       //component: resolve => require(['../views/news/index.vue'], resolve)
+    },
+    {
+      path: '*',
+      hidden: true,
+      redirect: { path: '/home' }
     }
   ]
 })

@@ -50,14 +50,14 @@ const mutations = {
 const actions = {
     fetchCourse({commit, dispatch}, payload = {noShare: false}) {
         //api 请求
-        console.log(userApi)
-        userApi.getUserList((res) => {
-            console.log("success");
-            console.log(res);
+        // console.log(userApi)
+        // userApi.getUserList((res) => {
+        //     console.log("success");
+        //     console.log(res);
     
-          //commit('updateMsg', "res.data");
+        //   //commit('updateMsg', "res.data");
     
-        }, err => {}, {})
+        // }, err => {}, {})
     
         console.log("fetch course");
     

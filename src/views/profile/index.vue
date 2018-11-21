@@ -39,98 +39,92 @@
 </template>
 
 <script type='text/ecmascript-6'>
-  export default {
-    data () {
-      return {
-      }
-    },
-    created () {
-    },
-    mounted () {
-
-    },
-    methods:{
-
-    }
-  }
+export default {
+  data() {
+    return {};
+  },
+  created() {},
+  mounted() {},
+  methods: {}
+};
 </script>
 
 <style lang='scss' scoped>
-  .profile-container{
-    .header{
-    background:linear-gradient(90deg, rgb(231, 86, 142), #ff696b);
+@import "../../assets/styles/variables.scss";
+
+.profile-container {
+  .header {
+    background: linear-gradient(90deg, rgb(231, 86, 142), #ff696b);
     padding: 4vw;
     color: #fff;
     text-align: center;
+    font-size: vw(16);
   }
 
-  .item-list{
+  .item-list {
     width: 100%;
     color: #777;
     font-size: 3.6vw;
-    .image-item{
+    .image-item {
       padding: 1vw 4vw;
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid #e4e4e4;
-            box-sizing: border-box;
-      .label{
+      box-sizing: border-box;
+      .label {
         display: flex;
         align-items: center;
       }
-      .right-item{
+      .right-item {
         display: flex;
         align-items: center;
-        img{
+        img {
           width: 8.5vw;
           height: 8.5vw;
           border: 5px solid #e4e4e4;
           border-radius: 8vw;
         }
-        .icon-right{
+        .icon-right {
           font-size: 4.5vw;
         }
       }
     }
 
-    .tip-item{
+    .tip-item {
       width: 100%;
       padding: 2vw 4vw;
       display: flex;
       justify-content: space-between;
       box-sizing: border-box;
       border-bottom: 1px solid #e4e4e4;
-      .label{
+      .label {
         display: flex;
         align-items: center;
       }
-      .right-item{
+      .right-item {
         display: flex;
         align-items: center;
-        img{
+        img {
           width: 8vw;
           height: 8vw;
           border: 5px solid #e4e4e4;
           border-radius: 8vw;
         }
-        .icon-right{
+        .icon-right {
           font-size: 5.5vw;
         }
       }
-
     }
   }
+}
 
-  }
-
-
-.btn-wrapper{
+.btn-wrapper {
   text-align: center;
   width: 100vw;
   margin-top: 10vw;
   display: flex;
   justify-content: center;
-  .btn{
+  .btn {
     display: inline-block;
     width: 40vw;
     height: 10vw;
@@ -143,5 +137,4 @@
     font-size: 3.6vw;
   }
 }
-
 </style>
